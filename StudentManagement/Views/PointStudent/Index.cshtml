@@ -1,0 +1,93 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<StudentManagement.Models.PointStudent>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/LayoutAdminStudent.cshtml";
+}
+
+<div class="content_pri">
+
+    <h2 style="color: black">Point Student Management</h2>
+
+
+    <div class="student_filter" style="display: flex; /* justify-content: space-between; */ align-items: center; margin: 46px 0px;">
+        <p style=" margin-bottom: 0; border: none; background: linear-gradient(-45deg, #D000F7, #24BAE3); color: white; border-radius: 2px; display: flex; justify-content: center; align-items: center; height: 40px; width: 120px; margin-right: 10px;">
+            <a class="nav-link" href="@Url.Action("Create", "Student")" style="color: white">Create New</a>
+        </p>
+        @using (Html.BeginForm("GetStudentbyID", "Student", FormMethod.Get, new
+        {
+            @class = "my-form",
+            style = "display: flex;\r\n    /* justify-content: space-between; */\r\n    align-items: center;\r\n    width: 35%;"
+        }))
+        {
+            <div style="border: none; background: linear-gradient(-45deg, #D000F7, #24BAE3); color: white; border-radius: 2px; display: flex; justify-content: center; align-items: center; height: 40px; width: 85px; margin-right: 33px;">
+                <a class="nav-link" href="@Url.Action("Index", "Student")" style="color: white">All</a>
+            </div>
+            <p style="display: flex; justify-content: space-between; width: 80%; align-items: center; margin-bottom: 0;">
+
+                <input name="idStudent" type="" placeholder="Please enter ID Student" style="border-radius: 4px; padding: 6px 5px; width: 295px; margin-right: 9px; border: 1px solid black" />
+                <input type="submit" value="Search" style="border: none; background: linear-gradient(-45deg, #D000F7, #24BAE3); color: white; border-radius: 2px; display: flex; justify-content: center; align-items: center; height: 40px; width: 116px; margin-right: 39px;" />
+            </p>
+
+        }
+    </div>
+
+
+    <table class="table">
+        <tr>
+            <th>
+                ID Student
+            </th>
+            <th>
+                ID Course
+            </th>
+            <th>
+                Midterm Score
+            </th>
+            <th>
+                Final Score
+            </th>
+            <th>
+                Average Score
+            </th>
+            <th></th>
+        </tr>
+
+
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdStudent)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdCourse)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Midterm_Score)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Final_Score)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Avg_score)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.IdStudent }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.IdStudent }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.IdStudent })
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+    <br />
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, pageSize = 5 }))
+</div>
+

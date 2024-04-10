@@ -1,0 +1,102 @@
+﻿@model StudentManagement.Models.IStudent
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/LayoutAdminStudent.cshtml";
+}
+
+
+<div class="content_pri">
+    <div>
+        <h4>Student</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Birthday)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Birthday)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Sex)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Sex)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Phonenumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Phonenumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IdStudent)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IdStudent)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IdMajor)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IdMajor)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IdAccount)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IdAccount)
+            </dd>
+
+        </dl>
+    </div>
+
+    <div style="display: flex; justify-content: start; align-items: center">
+        <div style="margin-bottom: 0; border: none; background: linear-gradient(-45deg, #D000F7, #24BAE3); color: white; border-radius: 2px; display: flex; justify-content: center; align-items: center; height: 40px; width: 120px; margin-right: 10px; margin-left: 10px">
+            @Html.ActionLink("Edit", "Edit", null, new { style = "color: white;" }) 
+        </div>
+
+        <div style="margin-bottom: 0; border: none; background: linear-gradient(-45deg, #D000F7, #24BAE3); color: white; border-radius: 2px; display: flex; justify-content: center; align-items: center; height: 40px; width: 120px; margin-right: 10px; margin-left: 10px">
+            @Html.ActionLink("Back to List", "Index", null, new { style = "color: white;" })
+        </div>
+    </div>
+</div>
+
+
+
+

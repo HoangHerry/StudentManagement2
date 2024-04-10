@@ -1,0 +1,79 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<StudentManagement.Models.Class_Student>
+@{
+    ViewBag.Title = "RegisteredClass";
+    Layout = "~/Views/Shared/LayoutAdminStudent.cshtml";
+}
+
+<div class="content_pri">
+
+    <h2 style="color: black">List Students belong Classes</h2>
+
+
+    <div class="student_filter" style="display: flex; /* justify-content: space-between; */ align-items: center; margin: 46px 0px;">
+        @using (Html.BeginForm("GetRegisteredClassOfStudentbyIDClass", "Student", FormMethod.Get, new
+        {
+            @class = "my-form",
+            style = "display: flex;\r\n    /* justify-content: space-between; */\r\n    align-items: center;\r\n    width: 35%;"
+        }))
+        {
+            <div style="border: none; background: linear-gradient(-45deg, #D000F7, #24BAE3); color: white; border-radius: 2px; display: flex; justify-content: center; align-items: center; height: 40px; width: 85px; margin-right: 33px;">
+                <a class="nav-link" href="@Url.Action("GetRegisteredClassOfStudent", "Student")" style="color: white">All</a>
+            </div>
+            <p style="display: flex; justify-content: space-between; width: 80%; align-items: center; margin-bottom: 0;">
+                <input name="idClass" type="" placeholder="Please enter ID Class" style="border-radius: 4px; padding: 6px 5px; width: 295px; margin-right: 9px; border: 1px solid black" />
+                <input type="submit" value="Filter" style="border: none; background: linear-gradient(-45deg, #D000F7, #24BAE3); color: white; border-radius: 2px; display: flex; justify-content: center; align-items: center; height: 40px; width: 116px; margin-right: 39px;" />
+            </p>
+
+        }
+        @using (Html.BeginForm("getClassesByIdCourse", "Student", FormMethod.Get))
+        {
+            <div>
+                Register class for student:
+                <input name="idStudent" type="" placeholder="Please enter ID Student" style="border-radius: 4px; padding: 6px 5px; width: 200px; margin-right: 9px; border: 1px solid black" />
+                <input name="idCourse" type="" placeholder="Please enter Couse you want register" style="border-radius: 4px; padding: 6px 5px; width: 283px; margin-right: 9px; border: 1px solid black" />
+                <button type="submit" style="border: none; background: linear-gradient(-45deg, #D000F7, #24BAE3); color: white; border-radius: 2px; /* display: flex; */ /* justify-content: center; */ /* align-items: center; */ height: 40px; width: 98px;">Register</button>
+            </div>
+        }
+    </div>
+
+
+    <table class="table">
+        <tr>
+            <th>
+                ID Class
+            </th>
+            <th>
+                ID Student
+            </th>
+            <th></th>
+        </tr>
+
+
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdClass)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdStudent)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.IdStudent }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.IdStudent }) |
+                        @Html.ActionLink("Delete", "Delete", new { idClass = item.IdClass , idStudent = item.IdStudent})
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+    <br />
+    @Html.PagedListPager(Model, page => Url.Action("GetRegisteredClassOfStudent",
+        new { page, pageSize = 5 }))
+</div>
+

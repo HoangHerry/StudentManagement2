@@ -1,0 +1,48 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<StudentManagement.Models.ClassBeLongsToCourse>
+@{
+    ViewBag.Title = "getClassesByIdCourse";
+    Layout = "~/Views/Shared/LayoutAdminStudent.cshtml";
+}
+
+<div class="content_pri">
+    <h2 style="color: black">List Class Of Couse</h2>
+    <table class="table">
+        <tr>
+            <th>
+                ID Course
+            </th>
+            <th>
+                ID Class
+            </th>
+            <th></th>
+        </tr>
+
+
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdCourse)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdClass)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Register", "RegisterClassforStudent", new { idClass = item.IdClass, idStudent = @Session["idStudent"] })
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+    <br />
+
+    @Html.PagedListPager(Model, page => Url.Action("getClassesByIdCourse",
+        new { idStudent = Session["idStudent"], idCourse = Session["idCourse"], page, pageSize = 5 }))
+</div>
+
+

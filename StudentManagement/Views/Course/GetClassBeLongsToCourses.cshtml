@@ -1,0 +1,61 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<StudentManagement.Models.ClassBeLongsToCourse>
+@{
+    ViewBag.Title = "GetClassBeLongsToCourses";
+    Layout = "~/Views/Shared/LayoutAdminStudent.cshtml";
+}
+
+
+<div class="content_pri">
+    <h2 style="color: black">List Class Of Couse</h2>
+    @using (Html.BeginForm("AddClassById", "Course", FormMethod.Post, new
+    {
+        @class = "my-form",
+        style = "display: flex;\r\n    /* justify-content: space-between; */\r\n    align-items: center;\r\n    width: 35%;"
+    }))
+    {
+        <p style="display: flex; justify-content: space-between; width: 80%; align-items: center; margin-bottom: 0; margin: 10px 0px; margin-bottom: 20px;">
+            <input value="@Session["idCourse"]" name="idCourse" type="text" placeholder="Please enter ID Course" style="border-radius: 4px; padding: 6px 5px; width: 295px; margin-right: 9px; border: 1px solid black; display: none" />
+            <input name="idClass" type="text" placeholder="Please enter ID Class" style="border-radius: 4px; padding: 6px 5px; width: 295px; margin-right: 9px; border: 1px solid black" />
+            <input type="submit" value="Add" style="border: none; background: linear-gradient(-45deg, #D000F7, #24BAE3); color: white; border-radius: 2px; display: flex; justify-content: center; align-items: center; height: 40px; width: 116px; margin-right: 39px;" />
+        </p>
+
+    }
+
+    <table class="table">
+        <tr>
+            <th>
+                ID Course
+            </th>
+            <th>
+                ID Class
+            </th>
+            <th></th>
+        </tr>
+
+
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdCourse)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdClass)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Remove", "Delete", new { id = item.IdCourse })
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+    <br />
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, pageSize = 5 }))
+</div>
+

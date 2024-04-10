@@ -1,0 +1,85 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<StudentManagement.Models.IAccount>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/LayoutAdminStudent.cshtml";
+}
+
+
+<div class="content_pri">
+
+    <h2 style="color: black">Account Information Management</h2>
+
+
+    <div class="student_filter" style="display: flex; /* justify-content: space-between; */ align-items: center; margin: 46px 0px;">
+       
+        @using (Html.BeginForm("GetStudentsByMajor", "Student", FormMethod.Get))
+        {
+            <div>
+                Filter by role:
+                <select name="idMajor" style="border-radius: 4px; padding: 6px 5px; width: 266px; margin-right: 9px;">
+                    <option value="">-- Select --</option>
+                    <option value="IT">IT</option>
+                    <option value="GD">GD</option>
+                    <option value="EC">EC</option>
+                </select>
+                <button type="submit" style="border: none; background: linear-gradient(-45deg, #D000F7, #24BAE3); color: white; border-radius: 2px; /* display: flex; */ /* justify-content: center; */ /* align-items: center; */ height: 40px; width: 98px;">Filter</button>
+            </div>
+        }
+    </div>
+
+
+    <table class="table">
+        <tr>
+            <th>
+                ID Account
+            </th>
+            <th>
+                User
+            </th>
+            <th>
+                Password
+            </th>
+            <th>
+                Role
+            </th>
+            <th></th>
+        </tr>
+
+
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdAccount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Password)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Role)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.IdAccount }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.IdAccount }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.IdAccount })
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+    <br />
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, pageSize = 5 }))
+</div>
+
+
